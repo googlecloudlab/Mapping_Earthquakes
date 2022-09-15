@@ -23,7 +23,7 @@ let sanFranAirport =
 
 
 // Create the map object with a center and zoom level.
-let map = L.map('mapid').setView([37.5, -122.5], 10);
+let map = L.map('mapid').setView([30, 30], 2);
 
 
 //  Add a marker to the map for Los Angeles, California.
@@ -52,6 +52,17 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/t
 // Then we add our 'streets' tile layer to the map.
 streets.addTo(map);
 
+// Accessing the airport GeoJSON URL
+let airportData = "https://raw.githubusercontent.com/googlecloudlab/Mapping_Earthquakes/main/majorAirports.json";
+
+// Grabbing our GeoJSON data.
+d3.json(airportData).then(function(data) {
+  console.log(data);
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJSON(data).addTo(map);
+});
+
+
 // Get data from cities.js
 // let cityData = cities;
 
@@ -65,7 +76,6 @@ streets.addTo(map);
 //  .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population.toLocaleString() + "</h3>")
 //  .addTo(map);
 // });
-
 
  // Grabbing our GeoJSON data.
 L.geoJSON(sanFranAirport, {
@@ -90,3 +100,4 @@ L.geoJSON(sanFranAirport, {
   }
 
 }).addTo(map);
+
